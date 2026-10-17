@@ -15,6 +15,8 @@ title: About
 
 - webiste:  https://github.com/snehasishroy/leetcode-companywise-interview-questions/blob/master/tiktok/all.csv
 - current progress: 3
-- difficult problems: -
+- difficult problems: 
+    - 3 longest substraing
+        This needs to use double pointers, which is very interesting.
 
 
