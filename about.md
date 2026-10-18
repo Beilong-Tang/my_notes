@@ -18,7 +18,7 @@ title: About
 - difficult problems: 
     - 3 longest substraing
         This needs to use double pointers, which is very interesting.
-    - 4 median of two arrays
-        How to make it O(log(n+m))?
+    - <span style="color: red">4 median of two arrays
+        How to make it O(log(n+m))? Binary search will help. </span>
 
 
