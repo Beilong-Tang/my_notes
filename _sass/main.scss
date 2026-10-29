@@ -1,3 +1,78 @@
-.current {
-  color: red;
+// Palette and page chrome, shared with slurm_visualization.
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --text: #1d1d1b; --muted: #75746f; --line: #e3e2dd;
+  --accent: #2f5fd0; --hover: #f1f0ec; --code-bg: #f6f8fa;
+  --run: #1f8a4c; --run-bg: #e3f4ea; --pend: #a86b00; --pend-bg: #fdf1d8;
+  --done: #5b6470; --done-bg: #eceef1; --fail: #c4322b; --fail-bg: #fbe5e3;
+  --canc: #7a4fc2; --canc-bg: #efe8fa; --gpu: #0f6f88; --gpu-bg: #def1f5;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161615; --panel: #1f1f1d; --text: #e9e8e4; --muted: #9b9a94; --line: #34332f;
+    --accent: #7ea2ff; --hover: #2a2a27; --code-bg: #171716;
+    --run: #5fd394; --run-bg: #1b3326; --pend: #f0b44c; --pend-bg: #3a2d14;
+    --done: #aab3bf; --done-bg: #2b2e33; --fail: #ff7d73; --fail-bg: #3d1f1d;
+    --canc: #b99bf0; --canc-bg: #2d2540; --gpu: #6fd0e6; --gpu-bg: #163239;
+  }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 22px; margin: 4px 0 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+h2 { font-size: 16px; margin: 24px 0 10px; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); font-size: 13px; }
+small { color: var(--muted); }
+
+header { display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  padding: 10px 24px; background: var(--panel); border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 2; }
+.brand { font-weight: 700; color: var(--text); }
+.brand:hover { text-decoration: none; }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.tabs a { padding: 6px 12px; border-radius: 6px; color: var(--text); }
+.tabs a:hover { background: var(--hover); text-decoration: none; }
+.tabs a.active { background: var(--text); color: var(--panel); }
+.count { font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 2px; }
+
+main { padding: 16px 24px 48px; max-width: 960px; margin: 0 auto; }
+.crumb { margin: 0; color: var(--muted); }
+.meta { margin: 0 0 16px; color: var(--muted); }
+.more { margin-top: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin: 12px 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-left-width: 4px; border-radius: 8px;
+  padding: 12px 14px; display: flex; flex-direction: column; color: var(--text); }
+a.card:hover { background: var(--hover); text-decoration: none; }
+.card .num { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.card span:last-child { color: var(--muted); font-size: 13px; }
+.c-posts { border-left-color: var(--accent); } .c-tags { border-left-color: var(--gpu); }
+.c-projects { border-left-color: var(--canc); } .c-latest { border-left-color: var(--run); }
+
+.table-wrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: middle; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); background: var(--panel); }
+tbody tr:hover { background: var(--hover); }
+tbody tr:last-child td { border-bottom: 0; }
+.posts td { vertical-align: top; }
+.posts td.title { white-space: normal; width: 100%; }
+.posts .excerpt { display: block; margin-top: 2px; }
+.empty { color: var(--muted); padding: 24px; text-align: center; background: var(--panel);
+  border: 1px dashed var(--line); border-radius: 8px; }
+
+.badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+a.badge:hover { text-decoration: none; filter: brightness(.95); }
+h1 .badge { font-size: 13px; }
+.b-tag { color: var(--gpu); background: var(--gpu-bg); }
+.b-project { color: var(--canc); background: var(--canc-bg); }
+.b-neutral { color: var(--done); background: var(--done-bg); }
+
+@media (max-width: 700px) {
+  header, main { padding-left: 16px; padding-right: 16px; }
+  .posts .excerpt { display: none; }
 }

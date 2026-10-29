@@ -3,20 +3,16 @@ layout: default
 title: Project
 ---
 <h1>Projects</h1>
-<ul>
-  {% for project in site.projects %}
-    <li>
-      <h2><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h2>
 
-      <ul>
-        {% assign filtered_posts = site.posts | where: 'project', project.slug %}
-        {% for post in filtered_posts %}
-          <li>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            <small>— {{ post.date | date: "%B %-d, %Y" }}</small>
-          </li>
-        {% endfor %}
-      </ul>
-    </li>
+<div class="cards">
+  {% for project in site.projects %}
+    {% assign filtered_posts = site.posts | where: 'project', project.slug %}
+    <a class="card c-projects" href="{{ project.url | relative_url }}"><span class="num">{{ filtered_posts.size }}</span><span>{{ project.title }}</span></a>
   {% endfor %}
-</ul>
+</div>
+
+{% for project in site.projects %}
+  {% assign filtered_posts = site.posts | where: 'project', project.slug %}
+  <h2><a href="{{ project.url | relative_url }}">{{ project.title }}</a> <span class="count">{{ filtered_posts.size }}</span></h2>
+  {% include post_table.html posts=filtered_posts %}
+{% endfor %}

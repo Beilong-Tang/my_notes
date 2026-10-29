@@ -2,4 +2,19 @@
 layout: default
 title: Home
 ---
-<h1>{{ "Hello World!" | downcase }}</h1>
+<h1>Notes</h1>
+<p class="muted">Things I learned while doing research: PyTorch, Slurm, diffusion models, and whatever broke this week.</p>
+
+<div class="cards">
+  <a class="card c-posts" href="{{ "/blog.html" | relative_url }}"><span class="num">{{ site.posts.size }}</span><span>Posts</span></a>
+  <a class="card c-tags" href="{{ "/tag.html" | relative_url }}"><span class="num">{{ site.tags.size }}</span><span>Tags</span></a>
+  <a class="card c-projects" href="{{ "/project.html" | relative_url }}"><span class="num">{{ site.projects.size }}</span><span>Projects</span></a>
+  {% if site.posts.size > 0 %}
+  <a class="card c-latest" href="{{ site.posts.first.url | relative_url }}"><span class="num">{{ site.posts.first.date | date: "%b %-d" }}</span><span>Last update</span></a>
+  {% endif %}
+</div>
+
+<h2>Recent posts</h2>
+{% assign recent = site.posts | slice: 0, 5 %}
+{% include post_table.html posts=recent %}
+<p class="more"><a href="{{ "/blog.html" | relative_url }}">All posts →</a></p>

@@ -1,5 +1,14 @@
-<nav>
-  {% for item in site.data.navigation %}
-    <a href="{{ item.link | relative_url }}"{% if page.url == item.link %} class="current"{% endif %}>{{ item.name }}</a>
-  {% endfor %}
-</nav>
+{% case page.collection %}
+  {% when "posts" %}{% assign section = "/blog.html" %}
+  {% when "tags" %}{% assign section = "/tag.html" %}
+  {% when "projects" %}{% assign section = "/project.html" %}
+  {% else %}{% assign section = page.url %}
+{% endcase %}
+<header>
+  <a class="brand" href="{{ "/" | relative_url }}">Notes <span class="muted">· Beilong Tang</span></a>
+  <nav class="tabs">
+    {% for item in site.data.navigation %}
+      <a href="{{ item.link | relative_url }}"{% if section == item.link %} class="active"{% endif %}>{{ item.name }}</a>
+    {% endfor %}
+  </nav>
+</header>

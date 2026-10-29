@@ -1,0 +1,25 @@
+{% comment %} Renders include.posts as a table: date, title, tag, project. {% endcomment %}
+{% if include.posts.size == 0 %}
+<p class="empty">No posts yet.</p>
+{% else %}
+<div class="table-wrap">
+  <table class="posts">
+    <thead><tr><th>Date</th><th>Title</th><th>Tag</th><th>Project</th></tr></thead>
+    <tbody>
+      {% for post in include.posts %}
+        {% assign project = site.projects | where: "slug", post.project | first %}
+        {% assign tag = site.tags | where: "name", post.tag | first %}
+        <tr>
+          <td class="mono muted"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time></td>
+          <td class="title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            {% if include.excerpt %}<small class="excerpt">{{ post.content | strip_html | truncate: 140 }}</small>{% endif %}
+          </td>
+          <td>{% if tag %}<a class="badge b-tag" href="{{ tag.url | relative_url }}">{{ tag.name }}</a>{% else %}<span class="muted">–</span>{% endif %}</td>
+          <td>{% if project %}<a class="badge b-project" href="{{ project.url | relative_url }}">{{ project.title }}</a>{% else %}<span class="muted">–</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}

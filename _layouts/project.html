@@ -1,13 +1,8 @@
 ---
 layout: default
 ---
-<h1>Project</h1>
-<h1>{{ page.title }}</h1>
+{% assign filtered_posts = site.posts | where: 'project', page.slug %}
+<p class="crumb"><a href="{{ "/project.html" | relative_url }}">Projects</a> / {{ page.title }}</p>
+<h1>{{ page.title }} <span class="badge b-project">{{ filtered_posts.size }} {% if filtered_posts.size == 1 %}post{% else %}posts{% endif %}</span></h1>
 
-<h2>Posts</h2>
-<ul>
-  {% assign filtered_posts = site.posts | where: 'project', page.slug %}
-  {% for post in filtered_posts %}
-    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
+{% include post_table.html posts=filtered_posts excerpt=true %}

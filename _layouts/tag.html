@@ -1,13 +1,8 @@
 ---
 layout: default
 ---
-<h1>Tag</h1>
-<h1>{{ page.name }}</h1>
+{% assign filtered_posts = site.posts | where: 'tag', page.name %}
+<p class="crumb"><a href="{{ "/tag.html" | relative_url }}">Tags</a> / {{ page.name }}</p>
+<h1>{{ page.name }} <span class="badge b-tag">{{ filtered_posts.size }} {% if filtered_posts.size == 1 %}post{% else %}posts{% endif %}</span></h1>
 
-<h2>Posts</h2>
-<ul>
-  {% assign filtered_posts = site.posts | where: 'tag', page.name %}
-  {% for post in filtered_posts %}
-    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
+{% include post_table.html posts=filtered_posts excerpt=true %}

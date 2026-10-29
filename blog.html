@@ -2,14 +2,6 @@
 layout: default
 title: Blog
 ---
-<h1>Latest Posts</h1>
+<h1>Blog <span class="badge b-neutral">{{ site.posts.size }} posts</span></h1>
 
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-      <p> {{ post.date | date: "%B %-d, %Y" }} - <a href="{{ "/tags/" | append: post.tag | relative_url }}">{{post.tag}}</a></p>
-      {{ post.content | strip_html | truncate: 150 }}
-    </li>
-  {% endfor %}
-</ul>
+{% include post_table.html posts=site.posts excerpt=true %}
