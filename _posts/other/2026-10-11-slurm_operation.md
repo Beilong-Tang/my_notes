@@ -19,3 +19,9 @@ gpumon 30 > >(tee "gpu_usage/${SLURM_JOB_NAME}_${SLURM_JOB_ID}.log") &
 NVSMI_PID=$!
 trap 'kill $NVSMI_PID 2>/dev/null' EXIT`
 ```
+
+
+```sh
+# access the gpu utilization of a running job
+srun --jobid=<job_id> --overlap --cpu-bind=none -n1 nvidia-smi
+```
